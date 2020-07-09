@@ -49,7 +49,7 @@ public class RolServiceImpl implements RolService {
 	@Override
 	public Boolean updateRol(final Rol rolActualizar) {
 		Optional<Rol> optionalRol = rolRepo.findById(rolActualizar.getIdRol());
-		if (rolActualizar != null && !optionalRol.isPresent()) {
+		if (rolActualizar != null && optionalRol.isPresent()) {
 			Utils.copyNonNullProperties(rolActualizar, optionalRol.get());
 			rolRepo.save(rolActualizar);
 			return true;

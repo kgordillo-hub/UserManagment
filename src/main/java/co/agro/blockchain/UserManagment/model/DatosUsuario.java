@@ -1,5 +1,7 @@
 package co.agro.blockchain.UserManagment.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,15 +15,15 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="DATOS_USUARIO", schema = "AGRO_CHAIN_PLATFORM")
+@Table(name = "DATOS_USUARIO", schema = "AGRO_CHAIN_PLATFORM")
 public class DatosUsuario {
 
 	@Id
 	@Column(name = "ID_USUARIO")
 	private String idUsuario;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ID_EMPRESA", nullable=false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+	@JoinColumn(name = "ID_EMPRESA", nullable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Empresa empresa;
 	@Column(name = "NOMBRE_USUARIO")
 	private String nombreUsario;
@@ -35,13 +37,14 @@ public class DatosUsuario {
 	private String codMunicipio;
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
+	private transient String fechaStr;
 	@Column(name = "FECHA_INGRESO")
-	private Date fechaIngreso;
+	private Date fechaIngresoDate;
 	@Column(name = "ESTADO_USUARIO")
 	private Short estadoUsuario;
-	
+
 	public DatosUsuario() {
-		//constructor basico
+		// constructor basico
 	}
 
 	public String getIdUsuario() {
@@ -100,14 +103,6 @@ public class DatosUsuario {
 		this.descripcion = descripcion;
 	}
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
-
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
-
 	public Short getEstadoUsuario() {
 		return estadoUsuario;
 	}
@@ -123,5 +118,26 @@ public class DatosUsuario {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-	
+
+	public Date getFechaIngresoDate() throws ParseException {
+		if (fechaIngresoDate == null) {
+			if (fechaStr != null) {
+				fechaIngresoDate = new SimpleDateFormat("dd-MM-yyyy").parse(fechaStr);
+			}
+		}
+		return fechaIngresoDate;
+	}
+
+	public void setFechaIngresoDate(Date fechaIngresoDate) {
+		this.fechaIngresoDate = fechaIngresoDate;
+	}
+
+	public String getFechaStr() {
+		return fechaStr;
+	}
+
+	public void setFechaStr(String fechaStr) {
+		this.fechaStr = fechaStr;
+	}
+
 }

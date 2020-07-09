@@ -1,5 +1,6 @@
 package co.agro.blockchain.UserManagment.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,13 @@ public class UsuarioLoginImpl implements UsuarioLoginService {
 
 	@Override
 	public Optional<UsuarioLogin> getUsuarioLoginById(UsuarioLoginPk id) {
-		return usuarioLoginRepo.findById(id);
+		final List<UsuarioLoginPk> pkList = new ArrayList<UsuarioLoginPk>();
+		pkList.add(id);
+		final List<UsuarioLogin> user = usuarioLoginRepo.findAllById(pkList);
+		if (user != null && !user.isEmpty()) {
+			return Optional.of(user.get(0));
+		}
+		return Optional.ofNullable(null);
 	}
 
 	@Override

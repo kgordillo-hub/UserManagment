@@ -13,7 +13,7 @@
 	<artifactId>UserManagment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>UserManagment</name>
-	<description>Prohect for managing user registration</description>
+	<description>Project for managing user registration</description>
 
 	<properties>
 		<java.version>1.8</java.version>

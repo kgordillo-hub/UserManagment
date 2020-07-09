@@ -49,7 +49,7 @@ public class DatosUsuarioServiceImpl implements DatosUsuarioService {
 	@Override
 	public Boolean updateDatosUsuario(DatosUsuario datos) {
 		final Optional<DatosUsuario> optionalDatosUser = datosUsuarioRepo.findById(datos.getIdUsuario());
-		if (datos != null && !optionalDatosUser.isPresent()) {
+		if (datos != null && optionalDatosUser.isPresent()) {
 			Utils.copyNonNullProperties(datos, optionalDatosUser.get());
 			datosUsuarioRepo.save(datos);
 			return true;
